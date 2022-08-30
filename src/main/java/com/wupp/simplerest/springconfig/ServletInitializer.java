@@ -1,4 +1,4 @@
-package com.wupp.simplerest;
+package com.wupp.simplerest.springconfig;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

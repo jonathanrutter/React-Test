@@ -17,17 +17,21 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
 		
 		<script>
-			function myjqSubmit(e){
+			function jqSubmit(e){
 				if (e) {
 			    e.preventDefault();
 				}
-			    var settings = {
+
+				var data = JSON.stringify({"name":"user","email":"123456","role":"boss"});
+				var data = JSON.stringify( $(form).serializeArray() );
+
+				var settings = {
 			        "url": "/employees",
 			        "method": "POST",
 			        "headers": {
 			            "Content-Type": "application/json"
 			        },
-			        "data": JSON.stringify({"name":"user","email":"123456","role":"boss"}),
+			        "data": data,
 			    };
 			    $.ajax({
 			        ...settings,
@@ -40,29 +44,7 @@
 			    })
 			};
 		
-			function myFunction() {
-				var data = JSON.stringify( $(form).serializeArray() );
-			    var settings = {
-				        "url": "/employees",
-				        "method": "POST",
-				        "headers": {
-				            "Content-Type": "application/json"
-				        },
-				        "data": data,
-				    };
-				    $.ajax({
-				        ...settings,
-				        success: function (result) {
-				            alert("success")
-				        },
-				        error : function (){
-				            alert("error")
-				        }
-				    })
-
-			};
-			
-			function myFunctionFETCH() {
+			function fetchSubmit() {
 				var data = JSON.stringify( $(form).serializeArray() );
 				var data2 = JSON.stringify($("#form").serializeArray());
 				
@@ -97,8 +79,6 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Role</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -107,19 +87,35 @@
                                     <td th:text="${employee.name}"></td>
                                     <td th:text="${employee.email}"></td>
                                     <td th:text="${employee.role}"></td>
-                                    <td><a th:href="@{/edit/{id}(id=${employee.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
-                                    <td><a th:href="@{/delete/{id}(id=${employee.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>      
                     Now Add an Employee
-                    <form onsubmit="myFunction()" id="form">
-                    <label >Name:</label><Input id="Name" name="name"></Input><br/>
-                    <label >Email:</label><Input id="Email" name="email"></Input><br/>
-                    <label >Role:</label><Input id="Role" name="role"></Input><br/>
-                    <input type="submit" text="Add Employee">
+                    <form action="employeeByForm" id="form" method="post">
+                    
+                    	<div class="form-group col-md-6">
+                    		<label for="name" class="col-form-label">Name</label>
+                    		<input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                    	</div>
+                    	<div class="form-group col-md-6">
+                    		<label for="email" class="col-form-label">Email</label>
+                    		<input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                    	</div>
+                    	<div class="form-group col-md-6">
+                    		<label for="role" class="col-form-label">Role</label>
+                    		<input type="text" class="form-control" id="role" name="role" placeholder="Role">
+                    	</div>
+                    	<div class="form-group col-md-6">
+	                    	<input type="submit" value="Standard Form Submission" class="btn btn-primary">
+                    	</div>
                     </form>
+                   	<div class="form-group col-md-6">
+                    	<button onclick="jqSubmit()" class="btn btn-primary">JQuery Submission</button>
+                   	</div>
+                   	<div class="form-group col-md-6">
+                    	<button onclick="fetchSubmit()" class="btn btn-primary">FETCH Submission</button>
+                   	</div>
                 </div>
             </div>
         </div>

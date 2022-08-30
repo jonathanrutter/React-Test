@@ -1,0 +1,1 @@
+package com.wupp.simplerest.springconfig;

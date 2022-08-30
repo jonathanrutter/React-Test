@@ -19,29 +19,23 @@ class EmployeeController {
 		this.repository = repository;
 	}
 
-  // Aggregate root
-  // tag::get-aggregate-root[]
-  @GetMapping("/employees")
-  public Iterable<Employee> all() {
-    return repository.findAll();
-  }
-  // end::get-aggregate-root[]
+	@GetMapping("rest/employees")
+	public Iterable<Employee> all() {
+		return repository.findAll();
+	}
 
-  @PostMapping(consumes = "application/json", path="/employees")
-  Employee newEmployee(@RequestBody Employee newEmployee) {
-    return repository.save(newEmployee);
-  }
+	@PostMapping(consumes = "application/json", path="rest/employees")
+	Employee newEmployee(@RequestBody Employee newEmployee) {
+		return repository.save(newEmployee);
+	}
 
-  // Single item
-  
-  @GetMapping("/employees/{id}")
-  Employee one(@PathVariable Long id) {
-    
-    return repository.findById(id)
-      .orElseThrow(() -> new EmployeeNotFoundException(id));
-  }
+	@GetMapping("rest/employees/{id}")
+	Employee one(@PathVariable Long id) {
+		return repository.findById(id)
+				.orElseThrow(() -> new EmployeeNotFoundException(id));
+	}
 
-  @PutMapping("/employees/{id}")
+  @PutMapping("rest/employees/{id}")
   Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
     
     return repository.findById(id)
@@ -57,7 +51,7 @@ class EmployeeController {
       });
   }
 
-  @DeleteMapping("/employees/{id}")
+  @DeleteMapping("rest/employees/{id}")
   void deleteEmployee(@PathVariable Long id) {
     repository.deleteById(id);
   }
