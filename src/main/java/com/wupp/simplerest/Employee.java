@@ -18,7 +18,8 @@ class Employee {
 //  @NotBlank(message = "Email is mandatory")
   private String email;
 
-  Employee() {}
+  public Employee() {
+  }
 
   Employee(String name, String role, String email) {
 

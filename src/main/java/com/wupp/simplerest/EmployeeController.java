@@ -19,40 +19,42 @@ class EmployeeController {
 		this.repository = repository;
 	}
 
-	@GetMapping("rest/employees")
+	@GetMapping(path="/rest/employees", produces="application/json")
 	public Iterable<Employee> all() {
 		return repository.findAll();
 	}
 
-	@PostMapping(consumes = "application/json", path="rest/employees")
-	Employee newEmployee(@RequestBody Employee newEmployee) {
-		return repository.save(newEmployee);
+	@PostMapping(path="/rest/employees", consumes = "application/json", produces="application/json")
+	public Iterable<Employee> newEmployee(@RequestBody Employee newEmployee) {
+		repository.save(newEmployee);
+		return repository.findAll();
 	}
 
-	@GetMapping("rest/employees/{id}")
-	Employee one(@PathVariable Long id) {
+	@GetMapping("/rest/employees/{id}")
+	public Employee one(@PathVariable Long id) {
 		return repository.findById(id)
 				.orElseThrow(() -> new EmployeeNotFoundException(id));
 	}
 
-  @PutMapping("rest/employees/{id}")
-  Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
-    
-    return repository.findById(id)
-      .map(employee -> {
-        employee.setName(newEmployee.getName());
-        employee.setRole(newEmployee.getRole());
-        employee.setEmail(newEmployee.getEmail());
-        return repository.save(employee);
-      })
-      .orElseGet(() -> {
-        newEmployee.setId(id);
-        return repository.save(newEmployee);
-      });
-  }
+	@PutMapping("/rest/employees/{id}")
+	public Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
+		
+		return repository.findById(id)
+			.map(employee -> {
+				employee.setName(newEmployee.getName());
+				employee.setRole(newEmployee.getRole());
+				employee.setEmail(newEmployee.getEmail());
+				return repository.save(employee);
+			})
+			.orElseGet(() -> {
+				newEmployee.setId(id);
+				return repository.save(newEmployee);
+			});
+	}
 
-  @DeleteMapping("rest/employees/{id}")
-  void deleteEmployee(@PathVariable Long id) {
-    repository.deleteById(id);
-  }
+	@DeleteMapping("/rest/employees/{id}")
+	public Iterable<Employee> deleteEmployee(@PathVariable Long id) {
+		repository.deleteById(id);
+		return repository.findAll();
+	}
 }

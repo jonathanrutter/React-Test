@@ -17,33 +17,6 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
 		
 		<script>
-			function jqSubmit(e){
-				if (e) {
-			    e.preventDefault();
-				}
-
-				var data = JSON.stringify({"name":"user","email":"123456","role":"boss"});
-				var data = JSON.stringify( $(form).serializeArray() );
-
-				var settings = {
-			        "url": "/employees",
-			        "method": "POST",
-			        "headers": {
-			            "Content-Type": "application/json"
-			        },
-			        "data": data,
-			    };
-			    $.ajax({
-			        ...settings,
-			        success: function (result) {
-			            alert("success")
-			        },
-			        error : function (){
-			            alert("error")
-			        }
-			    })
-			};
-		
 			function fetchSubmit() {
 				var data = JSON.stringify( $(form).serializeArray() );
 				var data2 = JSON.stringify($("#form").serializeArray());
@@ -67,11 +40,20 @@
     </head>
     <body>
         <div th:switch="${employees}" class="container my-5">
+	        <div class="row">
+				<div class="col-md-6">
+	           		<a href="/index" class="btn btn-primary">
+	           			<i class="fas fa-home ml-2"></i>Home
+	           		</a>
+	        	</div>
+	        </div>
+            <h2 class="my-5">Employees</h2>
+            <p>Traditional webpages use HTML Forms to submit data the the server and reload and rerender the page. 
+            Either JSP's or the newer Thymeleaf are compiled on the server and merge the server data into the html.</p>
             <div class="row">
                 <div class="col-md-6">
                     <h2 th:case="null">No employees yet!</h2>
                     <div th:case="*">
-                        <h2 class="my-5">Employees</h2>
                         <table class="table table-striped table-responsive-md">
                             <thead>
                                 <tr>
@@ -79,6 +61,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Role</th>
+                            		<th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,6 +70,7 @@
                                     <td th:text="${employee.name}"></td>
                                     <td th:text="${employee.email}"></td>
                                     <td th:text="${employee.role}"></td>
+                            		<td><a th:href="@{/delete/{id}(id=${employee.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -110,9 +94,6 @@
 	                    	<input type="submit" value="Standard Form Submission" class="btn btn-primary">
                     	</div>
                     </form>
-                   	<div class="form-group col-md-6">
-                    	<button onclick="jqSubmit()" class="btn btn-primary">JQuery Submission</button>
-                   	</div>
                    	<div class="form-group col-md-6">
                     	<button onclick="fetchSubmit()" class="btn btn-primary">FETCH Submission</button>
                    	</div>

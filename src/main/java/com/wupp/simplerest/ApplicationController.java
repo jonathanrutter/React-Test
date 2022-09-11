@@ -2,7 +2,6 @@ package com.wupp.simplerest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,13 +29,18 @@ public class ApplicationController {
 		return "index";
 	}
 
+	@GetMapping("/ajax")
+	public String ajaxPage() {
+		return "ajax";
+	}
+
 	@PostMapping("/employeeByForm")
 	public ModelAndView addUserByFormSubmissionObj(@RequestParam Object name, 
 			@RequestParam Object email, @RequestParam Object role, ModelAndView mav) {
 		Employee employee = new Employee(name.toString(), role.toString(), email.toString());
 		repository.save(employee);
 		mav.addObject("employees", repository.findAll());
-		mav.setViewName("redirect:/index");
+		mav.setViewName("addEmployee");
 		return mav;
 	}
 
@@ -52,7 +56,7 @@ public class ApplicationController {
 	public ModelAndView deleteEmployee(@PathVariable Long id, ModelAndView mav) {
 		repository.deleteById(id);
 		mav.addObject("employees", repository.findAll());
-		mav.setViewName("redirect:/index");
+		mav.setViewName("addEmployee");
 		return mav;
 	}
 
