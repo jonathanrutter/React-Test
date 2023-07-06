@@ -34,6 +34,11 @@ public class ApplicationController {
 		return "ajax";
 	}
 
+	@GetMapping("/login")
+	public String login(){
+		return "login";
+	}
+	
 	@PostMapping("/employeeByForm")
 	public ModelAndView addUserByFormSubmissionObj(@RequestParam Object name, 
 			@RequestParam Object email, @RequestParam Object role, ModelAndView mav) {
@@ -51,7 +56,6 @@ public class ApplicationController {
 		return mav;
 	}
 
-	
 	@GetMapping("/delete/{id}")
 	public ModelAndView deleteEmployee(@PathVariable Long id, ModelAndView mav) {
 		repository.deleteById(id);
