@@ -30,7 +30,7 @@ public class SecurityConfig
 			+ "frame-src 'self' blob: ; "
 			+ "connect-src 'self'; "
 			+ "font-src 'self' https://use.fontawesome.com https://fonts.gstatic.com https://stackpath.bootstrapcdn.com 'unsafe-inline'; "
-			+ "script-src 'self' https://unpkg.com https://stackpath.bootstrapcdn.com https://ajax.googleapis.com/ https://cdn.datatables.net 'unsafe-inline'; "
+			+ "script-src 'self' https://cdn.jsdelivr.net https://unpkg.com https://stackpath.bootstrapcdn.com https://ajax.googleapis.com/ https://cdn.datatables.net 'unsafe-inline'; "
 			+ "style-src 'self' https://fonts.googleapis.com https://stackpath.bootstrapcdn.com https://use.fontawesome.com https://cdn.datatables.net https://cdn.jsdelivr.net 'unsafe-inline'; "
 			+ "img-src 'self' data;"
 			+ "object-src 'self' blob:";
@@ -83,8 +83,6 @@ public class SecurityConfig
 					.requestMatchers(HttpMethod.PATCH).denyAll()
 					.requestMatchers(HttpMethod.TRACE).denyAll()
 					.anyRequest().denyAll()
-					
-					
 				)
 			
 			.formLogin(formLogin -> formLogin
