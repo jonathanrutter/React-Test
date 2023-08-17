@@ -1,2 +1,2 @@
-# SimpleRest
-simple rest with springboot
+# React-Test
+First ReactJS project
