@@ -1,9 +1,15 @@
 package com.wupp.simplerest;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
-interface EmployeeRepository extends CrudRepository<Employee, Long> {
-//interface EmployeeRepository extends JpaRepository<Employee, Long> {
+
+/**
+ * We can directly access the EmployeeRepo using:
+ * localhost:8082/api/employees/1
+ * 
+ * Where port number and 'api' are defined in application.properties
+ */
+public interface EmployeeRepository extends CrudRepository<Employee, Long> {
+
 
 }

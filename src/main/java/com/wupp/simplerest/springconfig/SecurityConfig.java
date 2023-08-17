@@ -74,7 +74,8 @@ public class SecurityConfig
 						"/Javascript/**",
 						"/login",
 						"/forgotPassword",
-						"/rest/LoginResource/*"
+						"/rest/LoginResource/*",
+						"/api/*"
 							).permitAll()
 //					.requestMatchers("/login").anonymous() // could give 403 error if user already logged in?
 					.requestMatchers("/**").permitAll()

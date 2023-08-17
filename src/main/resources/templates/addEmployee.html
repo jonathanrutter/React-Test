@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
         <link rel="stylesheet" href="/css/shards.min.css">
-		<link rel="stylesheet" href="/css/test.css">
+		<link rel="stylesheet" href="/test.css">
 		
 		<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
 		<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
@@ -22,7 +22,8 @@
 				var data2 = JSON.stringify($("#form").serializeArray());
 				
 				let formData = new FormData();
-				formData.append('name', 'John');
+				formData.append('firstName', 'John');
+				formData.append('lastName', 'Bloggs');
 				formData.append('email', 'John123');
 				formData.append('role', 'John123');
 
@@ -58,7 +59,8 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Name</th>
+                                    <th>Fist name</th>
+                                    <th>Last name</th>
                                     <th>Email</th>
                                     <th>Role</th>
                             		<th>Delete</th>
@@ -67,7 +69,8 @@
                             <tbody>
                                 <tr th:each="employee : ${employees}">
                                     <td th:text="${employee.id}"></td>
-                                    <td th:text="${employee.name}"></td>
+                                    <td th:text="${employee.firstName}"></td>
+                                    <td th:text="${employee.lastName}"></td>
                                     <td th:text="${employee.email}"></td>
                                     <td th:text="${employee.role}"></td>
                             		<td><a th:href="@{/delete/{id}(id=${employee.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
@@ -79,8 +82,12 @@
                     <form action="employeeByForm" id="form" method="post">
                     
                     	<div class="form-group col-md-6">
-                    		<label for="name" class="col-form-label">Name</label>
-                    		<input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                    		<label for="name" class="col-form-label">First name</label>
+                    		<input type="text" class="form-control" id="name" name="name" placeholder="First name">
+                    	</div>
+                    	<div class="form-group col-md-6">
+                    		<label for="name" class="col-form-label">Last Name</label>
+                    		<input type="text" class="form-control" id="name" name="name" placeholder="Last name">
                     	</div>
                     	<div class="form-group col-md-6">
                     		<label for="email" class="col-form-label">Email</label>

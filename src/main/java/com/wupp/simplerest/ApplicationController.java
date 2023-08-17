@@ -34,15 +34,20 @@ public class ApplicationController {
 		return "ajax";
 	}
 
+	@GetMapping("/react")
+	public String reactPage() {
+		return "react";
+	}
+
 	@GetMapping("/login")
 	public String login(){
 		return "login";
 	}
 	
 	@PostMapping("/employeeByForm")
-	public ModelAndView addUserByFormSubmissionObj(@RequestParam Object name, 
+	public ModelAndView addUserByFormSubmissionObj(@RequestParam Object firstName, @RequestParam Object lastName, 
 			@RequestParam Object email, @RequestParam Object role, ModelAndView mav) {
-		Employee employee = new Employee(name.toString(), role.toString(), email.toString());
+		Employee employee = new Employee(firstName.toString(), lastName.toString(), role.toString(), email.toString());
 		repository.save(employee);
 		mav.addObject("employees", repository.findAll());
 		mav.setViewName("addEmployee");
