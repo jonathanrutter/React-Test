@@ -15,7 +15,7 @@ class DatabaseLoader implements CommandLineRunner {
 	private EmployeeRepository repository;
 	
 	public DatabaseLoader() {
-		
+		// Empty constructor
 	}
 	
 	@Override
