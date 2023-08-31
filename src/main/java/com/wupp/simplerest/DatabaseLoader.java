@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-class DatabaseLoader implements CommandLineRunner {
+public class DatabaseLoader implements CommandLineRunner {
 
 	private static final Logger log = LoggerFactory.getLogger(DatabaseLoader.class);
 

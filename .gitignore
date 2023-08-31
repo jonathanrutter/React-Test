@@ -6,3 +6,4 @@ node_modules/
 *.class
 *.MF
 *.log
+src/main/resources/static/built/bundle.js
