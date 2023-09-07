@@ -2,9 +2,12 @@ package com.wupp.simplerest;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Version;
 
 @Entity
 class Employee {
@@ -15,6 +18,8 @@ class Employee {
 	private String role;
 	private String email;
 
+	private @Version @JsonIgnore Long version;
+	
 	public Employee() {
 	}
 
@@ -65,9 +70,17 @@ class Employee {
 		this.email = email;
 	}
 
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, firstName, id, lastName, role);
+		return Objects.hash(email, firstName, id, lastName, role, version);
 	}
 
 	@Override
@@ -81,13 +94,14 @@ class Employee {
 		Employee other = (Employee) obj;
 		return Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
 				&& Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName)
-				&& Objects.equals(role, other.role);
+				&& Objects.equals(role, other.role) &&
+				Objects.equals(version, other.version);
 	}
 
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", role=" + role
-				+ ", email=" + email + "]";
+				+ ", email=" + email + ", version=" + version + "]";
 	}
 
 

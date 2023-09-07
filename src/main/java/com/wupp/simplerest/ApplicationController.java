@@ -18,31 +18,31 @@ public class ApplicationController {
 		this.repository = repository;
 	}
 
-	@RequestMapping("/")
-	public String index() {
-		return "forward:/index";
-	}
+//	@RequestMapping("/")
+//	public String index() {
+//		return "forward:/index";
+//	}
 	
 	@GetMapping("/index")
 	public String showUserList(Model model) {
-		model.addAttribute("employees", repository.findAll());
+//		model.addAttribute("employees", repository.findAll());
 		return "index";
 	}
 
-	@GetMapping("/ajax")
-	public String ajaxPage() {
-		return "ajax";
-	}
+//	@GetMapping("/ajax")
+//	public String ajaxPage() {
+//		return "ajax";
+//	}
 
-	@GetMapping("/react")
-	public String reactPage() {
-		return "react";
-	}
+//	@GetMapping("/react")
+//	public String reactPage() {
+//		return "react";
+//	}
 
-	@GetMapping("/login")
-	public String login(){
-		return "login";
-	}
+//	@GetMapping("/login")
+//	public String login(){
+//		return "login";
+//	}
 	
 	@PostMapping("/employeeByForm")
 	public ModelAndView addUserByFormSubmissionObj(@RequestParam Object firstName, @RequestParam Object lastName, 

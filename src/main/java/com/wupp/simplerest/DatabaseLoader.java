@@ -21,6 +21,8 @@ public class DatabaseLoader implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		log.info("Preloading " + repository.save(new Employee("Fred", "Flintstone", "Miner", "fred@quary.com")));
-		log.info("Preloading " + repository.save(new Employee("Barney", "Rubble", "CEO", "barney@quary.com")));
+		log.info("Preloading " + repository.save(new Employee("Barney", "Rubble", "Driver", "barney@quary.com")));
+		log.info("Preloading " + repository.save(new Employee("Wilma", "Flintstone", "Chef", "wilma@quary.com")));
+		log.info("Preloading " + repository.save(new Employee("Betty", "Rubble", "CEO", "betty@quary.com")));
 	}
 }
