@@ -6,16 +6,16 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>3.2.5</version>
+		<relativePath/>
 	</parent>
 	
 	<groupId>com.wupp</groupId>
 	<artifactId>simplerest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>simplerest</name>
-	<description>Demo project for Spring Boot</description>
+	<name>ReactTest</name>
+	<description>Demo project for ReactJS</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -50,7 +50,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+
+
 		<!--
 		-->
 		<dependency>

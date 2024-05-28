@@ -8,3 +8,4 @@ node_modules/
 *.log
 *.log.*.gz
 src/main/resources/static/built/*
+/.idea
