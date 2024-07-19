@@ -1,10 +1,9 @@
 const React = require('react');
-const ReactDOM = require('react-dom');
 const when = require('when');
 const client = require('./client');
 
-import EmployeeList from'./employeeList';
-import CreateDialog from'./createDialog';
+import EmployeeList from'./EmployeeList';
+import CreateDialog from'./CreateDialog';
 
 /**
  * React components have two types of data:
@@ -106,10 +105,4 @@ class App extends React.Component {
 		});
 	}
 }
-
-ReactDOM.render(
-    <React.StrictMode>
-	    <App />
-	</React.StrictMode>,
-	document.getElementById('react')
-)
+export default App;

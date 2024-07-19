@@ -1,6 +1,6 @@
 const React = require('react');
 
-import Employee from'./employee';
+import Employee from'./Employee';
 
 class EmployeeList extends React.Component{
 	render() {

@@ -1,6 +1,6 @@
 const React = require('react');
 
-import UpdateDialog from'./updateDialog';
+import UpdateDialog from'./UpdateDialog';
 
 class Employee extends React.Component{
 
