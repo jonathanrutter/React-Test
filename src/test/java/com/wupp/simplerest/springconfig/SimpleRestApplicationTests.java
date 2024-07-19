@@ -1,10 +1,10 @@
-package com.wupp.simplerest;
+package com.wupp.simplerest.springconfig;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SimplerestApplicationTests {
+class SimpleRestApplicationTests {
 
 	@Test
 	void contextLoads() {

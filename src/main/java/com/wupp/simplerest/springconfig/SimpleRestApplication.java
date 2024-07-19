@@ -1,4 +1,4 @@
-package com.wupp.simplerest;
+package com.wupp.simplerest.springconfig;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -17,10 +17,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication(exclude = { 
 		SecurityAutoConfiguration.class
 })
-public class SimplerestApplication {
+public class SimpleRestApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SimplerestApplication.class, args);
+		SpringApplication.run(SimpleRestApplication.class, args);
 	}
 
 }

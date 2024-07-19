@@ -11,9 +11,9 @@
 	</parent>
 	
 	<groupId>com.wupp</groupId>
-	<artifactId>simplerest</artifactId>
+	<artifactId>simplereact</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>ReactTest</name>
 	<description>Demo project for ReactJS</description>
 	<properties>
@@ -26,26 +26,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		
-		<!--
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		-->
-		
-		<!--
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web-services</artifactId>
-		</dependency>
-		-->
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
@@ -53,23 +44,8 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency>
-
-
-		<!--
-		-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
-
-		<!-- Turn off security
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		-->
 
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -80,7 +56,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
@@ -108,12 +83,9 @@
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.9.1</version>
+				<version>1.15.0</version>
 				<configuration>
 					<installDirectory>target</installDirectory>
-					<nodeVersion>v12.14.0</nodeVersion>
-					<!-- optional: with node version greater than 4.0.0 will use npm provided by node distribution -->
-					<!-- <npmVersion>2.15.9</npmVersion> -->
 				</configuration>
 				<executions>
 					<execution>
@@ -121,6 +93,10 @@
 						<goals>
 							<goal>install-node-and-npm</goal>
 						</goals>
+						<configuration>
+							<nodeVersion>v20.15.1</nodeVersion>
+							<npmVersion>10.8.2</npmVersion>
+						</configuration>
 					</execution>
 					<execution>
 						<id>npm install</id>

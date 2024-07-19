@@ -5,45 +5,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ApplicationController {
+public class MvcController {
 
 	private final EmployeeRepository repository;
 
-	public ApplicationController(EmployeeRepository repository) {
+	public MvcController(EmployeeRepository repository) {
 		this.repository = repository;
 	}
 
-//	@RequestMapping("/")
-//	public String index() {
-//		return "forward:/index";
-//	}
-	
 	@GetMapping("/index")
 	public String showUserList(Model model) {
 //		model.addAttribute("employees", repository.findAll());
 		return "index";
 	}
 
-//	@GetMapping("/ajax")
-//	public String ajaxPage() {
-//		return "ajax";
-//	}
-
-//	@GetMapping("/react")
-//	public String reactPage() {
-//		return "react";
-//	}
-
-//	@GetMapping("/login")
-//	public String login(){
-//		return "login";
-//	}
-	
 	@PostMapping("/employeeByForm")
 	public ModelAndView addUserByFormSubmissionObj(@RequestParam Object firstName, @RequestParam Object lastName, 
 			@RequestParam Object email, @RequestParam Object role, ModelAndView mav) {
