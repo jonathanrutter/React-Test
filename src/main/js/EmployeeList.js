@@ -5,7 +5,7 @@ import Employee from'./Employee';
 class EmployeeList extends React.Component{
 	render() {
 		const employees = this.props.employees.map(employee =>
-			<Employee key={employee.entity._links.self.href}
+			<Employee key={employee.id}
 				employee={employee}
 				attributes={this.props.attributes}
 				onDelete={this.props.onDelete}

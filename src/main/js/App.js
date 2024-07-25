@@ -1,9 +1,10 @@
 const React = require('react');
-const when = require('when');
-const client = require('./client');
+
+import {Container} from 'reactstrap';
 
 import EmployeeList from'./EmployeeList';
 import CreateDialog from'./CreateDialog';
+import AppNavbar from'./AppNavbar';
 
 /**
  * React components have two types of data:
@@ -28,81 +29,102 @@ class App extends React.Component {
 		this.loadFromServer();
 	}
 
-	loadFromServer() {
-		client({
-			method: 'GET',
-			path: '/api/employees'
-		})
-		.then(employeeCollection => {
-			return employeeCollection.entity._embedded.employees.map(employee =>
-					client({
-						method: 'GET',
-						path: employee._links.self.href
-					})
-			);
-		})
-		.then(employeePromises => {
-			return when.all(employeePromises);
-		})
-		.done(employees => {
-			this.setState({
-				employees: employees,
-				attributes: this.state.attributes
-			});
-		});
+	async loadFromServer() {
+	    const response = await fetch('/rest/employees');
+        if (response.ok) {
+            const body = await response.json();
+            this.setState({
+                employees: body,
+                attributes: this.state.attributes
+            });
+        }
+        else {
+            alert('Load failed ' + path + '. With error code: ' + response.status.code);
+        }
 	}
 	
 	render() {
 		return (
+
 			<div>
-				<h1>All Employees</h1>
-				<CreateDialog attributes={this.state.attributes} onCreate={this.onCreate}/>
-				<EmployeeList employees={this.state.employees}
-						attributes={this.state.attributes}
-						onUpdate={this.onUpdate}
-						onDelete={this.onDelete}/>
+		        <AppNavbar/>
+                <Container fluid>
+                    <h1>All Employees</h1>
+                    <CreateDialog
+                        attributes={this.state.attributes}
+                        createFn={this.onCreate}
+                        isNew={true} />
+                    <EmployeeList employees={this.state.employees}
+                            attributes={this.state.attributes}
+                            onUpdate={this.onUpdate}
+                            onDelete={this.onDelete}/>
+                </Container>
 			</div>
 		)
 	}
 	
-	onCreate(newEmployee) {
-		client({
-			method: 'POST',
-			path: '/api/employees',
-			entity: newEmployee,
-			headers: {'Content-Type': 'application/json'}
-		}).done(response => {
-			this.loadFromServer();
-		});
+	async onCreate(newEmployee) {
+        const response = await fetch('/rest/employees', {
+              method: "POST",
+              body: JSON.stringify(newEmployee),
+              headers: {
+                "Content-Type": "application/json",
+              },
+        });
+        const body = await response.json();
+        if (response.ok) {
+            this.loadFromServer();
+        }
+        else {
+            alert('Delete failed ' + path + '. With error code: ' + response.status.code);
+        }
 	}
 	
-	onUpdate(employee, updatedEmployee) {
-		client({
-			method: 'PUT',
-			path: employee.entity._links.self.href,
-			entity: updatedEmployee,
-			headers: {
-				'Content-Type': 'application/json',
-				'If-Match': employee.headers.Etag
-			}
-		}).done(response => {
-			this.loadFromServer();
-		}, response => {
-			if (response.status.code === 412) {
-				alert('DENIED: Unable to update ' +
-					employee.entity._links.self.href + '. Your copy is stale.');
-			}
-		});
+	async onUpdate(updatedEmployee, employeeId) {
+	    let path = '/rest/employees/' + employeeId;
+        const response = await fetch(path, {
+              method: "PUT",
+              body: JSON.stringify(updatedEmployee),
+              headers: {
+                "Content-Type": "application/json",
+              },
+        });
+        const body = await response.json();
+
+        if (response.status.code === 412) {
+            alert('DENIED: Unable to update ' + path + '. Your copy is stale.');
+        }
+        else if (response.ok) {
+            this.loadFromServer();
+        }
+        else {
+            alert('Update failed ' + path + '. With error code: ' + response.status.code);
+        }
 	}
 
-	onDelete(employee) {
-		client({
-		    method: 'DELETE',
-		    path: employee.entity._links.self.href
-		})
-		.done(response => {
-			this.loadFromServer();
-		});
+	async onDelete(employee) {
+	    let path = '/rest/employees/' + employee.id;
+        const response = await fetch(path, {
+              method: "DELETE",
+        });
+        const body = await response.json();
+
+        if (response.status.code === 412) {
+            alert('DENIED: Unable to update ' + path + '. Your copy is stale.');
+        }
+        else if (response.ok) {
+            this.loadFromServer();
+        }
+        else {
+            alert('Delete failed ' + path + '. With error code: ' + response.status.code);
+        }
+//		client({
+//		    method: 'DELETE',
+//		    path: employee.entity._links.self.href
+//		})
+//		.done(response => {
+//			this.loadFromServer();
+//		});
 	}
 }
 export default App;

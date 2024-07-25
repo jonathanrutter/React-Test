@@ -1,53 +1,96 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+
 class CreateDialog extends React.Component {
+
+
 
 	constructor(props) {
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.toggle = this.toggle.bind(this);
+		this.state = {
+            modal: false
+		};
+
+		var nodeRefsMap = new Map();
+		props.attributes.forEach(attribute => {
+		    let myRef = React.createRef();
+		    nodeRefsMap.set(attribute, myRef);
+		}, this);
+		console.log('nodeRefsMap Array size: ' + nodeRefsMap.size);
+
+        this.state = {
+            modal: false,
+            nodeRefs: nodeRefsMap
+        };
+
 	}
+
+    toggle() {
+        this.setState({
+          modal: !this.state.modal
+        });
+    }
 
 	handleSubmit(e) {
 		e.preventDefault();
-		const newEmployee = {};
+		const employee = {};
 		this.props.attributes.forEach(attribute => {
-			newEmployee[attribute] = ReactDOM.findDOMNode(this.refs[attribute]).value.trim();
+		    let ref = this.state.nodeRefs.get(attribute);
+		    employee[attribute] = ref.current.value.trim();
 		});
-		this.props.onCreate(newEmployee);
+
+        if (this.props.isNew) {
+		    this.props.createFn(employee);
+        }
+		else {
+             this.props.updateFn(employee, this.props.employee.id);
+		}
 
 		// clear out the dialog's inputs
-		this.props.attributes.forEach(attribute => {
-			ReactDOM.findDOMNode(this.refs[attribute]).value = '';
-		});
+        this.state.nodeRefs.values().forEach(ref => {
+            ref.current.value = '';
+        });
+//		this.props.attributes.forEach(attribute => {
+//			ReactDOM.findDOMNode(this.refs[attribute]).value = '';
+//		});
 
-		// Navigate away from the dialog to hide it.
-		window.location = "#";
+		this.toggle();
 	}
 
 	render() {
+	    const buttonLabel = this.props.isNew ? 'Create' : 'Update';
+	    const modalTitle = this.props.isNew ? 'Create New Employee' : 'Update Employee';
+
 		const inputs = this.props.attributes.map(attribute =>
+
 			<p key={attribute}>
-				<input type="text" placeholder={attribute} ref={attribute} className="field"/>
+				<input type="text"
+				    placeholder={attribute}
+				    ref={this.state.nodeRefs.get(attribute)}
+				    defaultValue={ this.props.isNew ? '' : this.props.employee[attribute]}
+				    className="field"/>
 			</p>
 		);
 
 		return (
 			<div>
-				<a href="#createEmployee">Create</a>
-
-				<div id="createEmployee" className="modalDialog">
-					<div>
-						<a href="#" title="Close" className="close">X</a>
-
-						<h2>Create new employee</h2>
-
-						<form>
-							{inputs}
-							<button onClick={this.handleSubmit}>Create</button>
-						</form>
-					</div>
-				</div>
+                <Button color="primary" onClick={this.toggle}>{buttonLabel}</Button>
+                <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                  <ModalHeader toggle={this.toggle}>{modalTitle}</ModalHeader>
+                  <ModalBody>
+                    <form>
+                        {inputs}
+                    </form>
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="primary" onClick={this.handleSubmit}>{buttonLabel}</Button>{' '}
+                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                  </ModalFooter>
+                </Modal>
 			</div>
 		)
 	}

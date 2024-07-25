@@ -35,19 +35,19 @@ class EmployeeRestController {
 	}
 
 	@PutMapping("/rest/employees/{id}")
-	public Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
+	public Employee updateEmployee(@RequestBody Employee updatedEmployee, @PathVariable Long id) {
 		
 		return repository.findById(id)
 			.map(employee -> {
-				employee.setFirstName(newEmployee.getFirstName());
-				employee.setLastName(newEmployee.getLastName());
-				employee.setRole(newEmployee.getRole());
-				employee.setEmail(newEmployee.getEmail());
+				employee.setFirstName(updatedEmployee.getFirstName());
+				employee.setLastName(updatedEmployee.getLastName());
+				employee.setRole(updatedEmployee.getRole());
+				employee.setEmail(updatedEmployee.getEmail());
 				return repository.save(employee);
 			})
 			.orElseGet(() -> {
-				newEmployee.setId(id);
-				return repository.save(newEmployee);
+				updatedEmployee.setId(id);
+				return repository.save(updatedEmployee);
 			});
 	}
 

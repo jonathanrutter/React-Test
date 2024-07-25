@@ -1,6 +1,8 @@
 const React = require('react');
 
-import UpdateDialog from'./UpdateDialog';
+import CreateDialog from'./CreateDialog';
+
+import { Button } from 'reactstrap';
 
 class Employee extends React.Component{
 
@@ -16,17 +18,18 @@ class Employee extends React.Component{
 	render() {
 		return (
 			<tr>
-				<td>{this.props.employee.entity.firstName}</td>
-				<td>{this.props.employee.entity.lastName}</td>
-				<td>{this.props.employee.entity.role}</td>
-				<td>{this.props.employee.entity.email}</td>
+				<td>{this.props.employee.firstName}</td>
+				<td>{this.props.employee.lastName}</td>
+				<td>{this.props.employee.role}</td>
+				<td>{this.props.employee.email}</td>
 				<td>
-					<UpdateDialog employee={this.props.employee}
+					<CreateDialog employee={this.props.employee}
 							attributes={this.props.attributes}
-							onUpdate={this.props.onUpdate}/>
+							updateFn={this.props.onUpdate}
+							isNew={false}/>
 				</td>
 				<td>
-					<button onClick={this.handleDelete}>Delete</button>
+				    <Button color="danger" onClick={this.handleDelete}>Delete</Button>
 				</td>
 			</tr>
 		)
