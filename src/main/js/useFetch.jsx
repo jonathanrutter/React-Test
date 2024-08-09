@@ -3,13 +3,14 @@ import {useState, useEffect} from 'react';
 function useFetch(url) {
 
     const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState([true]);
-    const [error, setError] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [shouldRefetch, refetch] = useState({});
 
     useEffect(() => {
 		console.log('useEffect triggered');
         setTimeout(loadFromServer, 1000);
-    }, [url]);
+    }, [url, shouldRefetch]);
 
 	async function loadFromServer() {
 	    console.log("starting data loading");
@@ -21,6 +22,7 @@ function useFetch(url) {
 	        });
         if (response.ok) {
             const body = await response.json();
+	        setError(false);
             setData(body);
             setIsLoading(false);
         }
@@ -30,6 +32,6 @@ function useFetch(url) {
         }
 	}
 
-    return {data, isLoading, error};
+    return {data, isLoading, error, refetch};
 }
 export default useFetch;
