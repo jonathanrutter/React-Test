@@ -1,4 +1,6 @@
-import { Button } from 'reactstrap';
+import { Text } from 'react';
+import { Button, Badge } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 import CreateDialog from'./CreateDialog';
 
@@ -21,6 +23,11 @@ function Employee({employee, attributes, deleteFn, updateFn}) {
             </td>
             <td>
                 <Button color="danger" onClick={() => deleteFn(employee)}>Delete</Button>
+            </td>
+            <td>
+                <Link to={`/employee/${employee.id}`}>
+                    <Badge>View Employee Details</Badge>
+                </Link>
             </td>
         </tr>
     )

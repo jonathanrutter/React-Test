@@ -22,19 +22,19 @@ class EmployeeRestController {
 		return repository.findAll();
 	}
 
-	@PostMapping(path="/rest/employees", consumes = "application/json", produces="application/json")
+	@PostMapping(path="/rest/employee", consumes = "application/json", produces="application/json")
 	public Iterable<Employee> newEmployee(@RequestBody Employee newEmployee) {
 		repository.save(newEmployee);
 		return repository.findAll();
 	}
 
-	@GetMapping("/rest/employees/{id}")
+	@GetMapping("/rest/employee/{id}")
 	public Employee one(@PathVariable Long id) {
 		return repository.findById(id)
 				.orElseThrow(() -> new EmployeeNotFoundException(id));
 	}
 
-	@PutMapping("/rest/employees/{id}")
+	@PutMapping("/rest/employee/{id}")
 	public Employee updateEmployee(@RequestBody Employee updatedEmployee, @PathVariable Long id) {
 		
 		return repository.findById(id)
@@ -51,7 +51,7 @@ class EmployeeRestController {
 			});
 	}
 
-	@DeleteMapping("/rest/employees/{id}")
+	@DeleteMapping("/rest/employee/{id}")
 	public Iterable<Employee> deleteEmployee(@PathVariable Long id) {
 		repository.deleteById(id);
 		return repository.findAll();

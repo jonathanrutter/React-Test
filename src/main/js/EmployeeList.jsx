@@ -12,6 +12,7 @@ function EmployeeList({props, employees, attributes, deleteFn, updateFn}) {
                     <th>Email</th>
                     <th>Update</th>
                     <th>Delete</th>
+                    <th>Details</th>
                 </tr>
                 { employees.map(employee => (
                     <Employee key={employee.id}

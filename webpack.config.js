@@ -5,9 +5,11 @@ module.exports = {
     devtool: 'source-map',
     cache: true,
     mode: 'development',
+    //mode: 'production',
     output: {
-        path: __dirname,
-        filename: './src/main/resources/static/built/bundle.js'
+        path: path.resolve(__dirname, 'src/main/resources/static/built'),
+        filename: 'bundle.js',
+        publicPath: '/'
     },
     module: {
         rules: [

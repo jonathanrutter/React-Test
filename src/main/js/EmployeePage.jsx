@@ -10,7 +10,7 @@ function EmployeePage() {
     const attributes = ['firstName', 'lastName', 'role', 'email'];
 
 	async function onCreate(newEmployee) {
-        const response = await fetch('/rest/employees', {
+        const response = await fetch('/rest/employee', {
               method: "POST",
               body: JSON.stringify(newEmployee),
               headers: {
@@ -27,7 +27,7 @@ function EmployeePage() {
 	}
 
 	async function onUpdate(updatedEmployee, employeeId) {
-	    let path = '/rest/employees/' + employeeId;
+	    let path = '/rest/employee/' + employeeId;
         const response = await fetch(path, {
               method: "PUT",
               body: JSON.stringify(updatedEmployee),
@@ -49,7 +49,7 @@ function EmployeePage() {
 	}
 
 	async function onDelete(employee) {
-	    let path = '/rest/employees/' + employee.id;
+	    let path = '/rest/employee/' + employee.id;
         const response = await fetch(path, {
               method: "DELETE",
         });
