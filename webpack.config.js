@@ -23,6 +23,13 @@ module.exports = {
             {
                 test: /\.(ts)x?$/,
                 exclude: /(node_modules)/,
+                // using two loaders for the typescript/JavaScript
+                // ts-loader run first
+                //    this fails on typescript errors
+                //    but the "jsx": "preserve" option in tsconfig.json means the jsx is not converted to JavaScript
+                // babel-loader runs second
+                //    this converts the jsx to JavaScript
+                //    adds any polyfills that are required (functions for browser backward compatibility)
                 use: [
                     {
                         loader: 'babel-loader',
