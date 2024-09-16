@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import { useState } from 'react';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-function CreateDialog({isNew, attributes, employee, updateFn, createFn}) {
+function CreateDialog({isNew, attributes, createFn, employee, updateFn}:{isNew: boolean, attributes: any, createFn?:any, employee?: any, updateFn?:any}) {
 
     const [show, setShow] = useState(false);
 
@@ -36,9 +36,12 @@ function CreateDialog({isNew, attributes, employee, updateFn, createFn}) {
 		}
 
 		// clear out the dialog's inputs
-        nodeRefsMap.values().forEach(ref => {
+//         nodeRefsMap.values().forEach(ref => {
+//             ref.current.value = '';
+//         });
+        for (let ref of nodeRefsMap.values()) {
             ref.current.value = '';
-        });
+        }
 
 		toggle();
 	}

@@ -1,4 +1,3 @@
-import { Text } from 'react';
 import { Button, Badge } from 'reactstrap';
 import { Link } from 'react-router-dom';
 

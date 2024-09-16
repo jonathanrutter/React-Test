@@ -1,3 +1,5 @@
+import {Alert} from 'reactstrap';
+
 import EmployeeList from'./EmployeeList';
 import useFetch from'./useFetch';
 import {Container} from 'reactstrap';
@@ -5,12 +7,13 @@ import CreateDialog from'./CreateDialog';
 
 
 function EmployeePage() {
-    const {data: employees, isLoading, error, refetch} = useFetch('/rest/employees');
+    const {data: employees, isLoading, error, refetch} = useFetch('/rest/employees', false);
 
     const attributes = ['firstName', 'lastName', 'role', 'email'];
 
 	async function onCreate(newEmployee) {
-        const response = await fetch('/rest/employee', {
+	    let path = '/rest/employee';
+        const response = await fetch(path, {
               method: "POST",
               body: JSON.stringify(newEmployee),
               headers: {
@@ -22,7 +25,7 @@ function EmployeePage() {
             refetch({});
         }
         else {
-            alert('Delete failed ' + path + '. With error code: ' + response.status.code);
+            new Alert(<div>'Delete failed ' + path + '. With error code: ' + response.status</div>);
         }
 	}
 
@@ -37,14 +40,14 @@ function EmployeePage() {
         });
         const body = await response.json();
 
-        if (response.status.code === 412) {
-            alert('DENIED: Unable to update ' + path + '. Your copy is stale.');
+        if (response.status === 412) {
+            new Alert(<div>'DENIED: Unable to update ' + path + '. Your copy is stale.'</div>);
         }
         else if (response.ok) {
             refetch({});
         }
         else {
-            alert('Update failed ' + path + '. With error code: ' + response.status.code);
+            new Alert(<div>'Update failed ' + path + '. With error code: ' + response.status</div>);
         }
 	}
 
@@ -55,14 +58,14 @@ function EmployeePage() {
         });
         const body = await response.json();
 
-        if (response.status.code === 412) {
-            alert('DENIED: Unable to update ' + path + '. Your copy is stale.');
+        if (response.status === 412) {
+            new Alert(<div>'DENIED: Unable to update ' + path + '. Your copy is stale.'</div>);
         }
         else if (response.ok) {
             refetch({});
         }
         else {
-            alert('Delete failed ' + path + '. With error code: ' + response.status.code);
+            new Alert(<div>'Delete failed ' + path + '. With error code: ' + response.status</div>);
         }
 	}
 
@@ -73,13 +76,16 @@ function EmployeePage() {
             { !isLoading && !error &&
             <div>
                 <CreateDialog
+                    isNew={true}
                     attributes={attributes}
                     createFn={onCreate}
-                    isNew={true} />
-                <EmployeeList employees={employees}
+                />
+                <EmployeeList
+                        employees={employees}
                         attributes={attributes}
+                        deleteFn={onDelete}
                         updateFn={onUpdate}
-                        deleteFn={onDelete}/>
+                />
             </div>
             }
             {isLoading && <div>Loading Data...</div> }

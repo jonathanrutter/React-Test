@@ -4,7 +4,7 @@ function useFetch(url, ignoreLoad) {
 
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(undefined);
     const [shouldRefetch, refetch] = useState({});
 
     useEffect(() => {

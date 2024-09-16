@@ -1,6 +1,6 @@
 import Employee from'./Employee';
 
-function EmployeeList({props, employees, attributes, deleteFn, updateFn}) {
+function EmployeeList({employees, attributes, deleteFn, updateFn}: {employees: any, attributes: any, deleteFn: any, updateFn: any}) {
 
     return (
         <table>
