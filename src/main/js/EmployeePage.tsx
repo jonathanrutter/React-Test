@@ -11,7 +11,7 @@ function EmployeePage() {
 
     const attributes = ['firstName', 'lastName', 'role', 'email'];
 
-	async function onCreate(newEmployee) {
+	async function onCreate(newEmployee:any) {
 	    let path = '/rest/employee';
         const response = await fetch(path, {
               method: "POST",
@@ -29,7 +29,7 @@ function EmployeePage() {
         }
 	}
 
-	async function onUpdate(updatedEmployee, employeeId) {
+	async function onUpdate(updatedEmployee: any, employeeId: number) {
 	    let path = '/rest/employee/' + employeeId;
         const response = await fetch(path, {
               method: "PUT",
